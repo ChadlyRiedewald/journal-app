@@ -77,5 +77,11 @@ export const Heading = ({ variant, children, ...props }) => {
           {children}
         </Heading6>
       );
+    default:
+      return (
+        <Heading1 variant="h1" {...props}>
+          {children}
+        </Heading1>
+      );
   }
 };
