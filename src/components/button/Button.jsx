@@ -22,31 +22,31 @@ const ButtonStyled = styled('button', {
 
   variants: {
     size: {
-      xs: {
+      sm: {
         fs: '$sm',
         h: '36px',
         px: '14px',
         py: '8px',
       },
-      sm: {
+      md: {
         fs: '$sm',
         h: '40px',
         px: '16px',
         py: '10px',
       },
-      md: {
+      lg: {
         fs: '$md',
         h: '44px',
         px: '18px',
         py: '10px',
       },
-      lg: {
+      xl: {
         fs: '$md',
         h: '48px',
         px: '20px',
         py: '12px',
       },
-      xl: {
+      '2xl': {
         fs: '$lg',
         h: '60px',
         px: '28px',
@@ -223,6 +223,9 @@ const ButtonStyled = styled('button', {
     fluid: {
       true: {
         maxW: 'revert',
+      },
+      false: {
+        maxW: '$fit',
       },
     },
   },

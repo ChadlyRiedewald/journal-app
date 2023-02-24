@@ -1,5 +1,12 @@
 import { createStitches } from '@stitches/react';
-import { cyan, cyanA, slate, slateA, tomato, tomatoA } from '@radix-ui/colors';
+import {
+  crimson,
+  crimsonA,
+  slate,
+  slateA,
+  tomato,
+  tomatoA,
+} from '@radix-ui/colors';
 
 export const {
   styled,
@@ -15,8 +22,8 @@ export const {
     colors: {
       ...slate,
       ...slateA,
-      ...cyan,
-      ...cyanA,
+      ...crimson,
+      ...crimsonA,
       ...tomato,
       ...tomatoA,
 
@@ -25,30 +32,30 @@ export const {
       black: '#000000',
 
       // Primary
-      primary1: '$cyan1',
-      primary2: '$cyan2',
-      primary3: '$cyan3',
-      primary4: '$cyan4',
-      primary5: '$cyan5',
-      primary6: '$cyan6',
-      primary7: '$cyan7',
-      primary8: '$cyan8',
-      primary9: '$cyan9',
-      primary10: '$cyan10',
-      primary11: '$cyan11',
-      primary12: '$cyan12',
-      primaryA1: '$cyanA1',
-      primaryA2: '$cyanA2',
-      primaryA3: '$cyanA3',
-      primaryA4: '$cyanA4',
-      primaryA5: '$cyanA5',
-      primaryA6: '$cyanA6',
-      primaryA7: '$cyanA7',
-      primaryA8: '$cyanA8',
-      primaryA9: '$cyanA9',
-      primaryA10: '$cyanA10',
-      primaryA11: '$cyanA11',
-      primaryA12: '$cyanA12',
+      primary1: '$crimson1',
+      primary2: '$crimson2',
+      primary3: '$crimson3',
+      primary4: '$crimson4',
+      primary5: '$crimson5',
+      primary6: '$crimson6',
+      primary7: '$crimson7',
+      primary8: '$crimson8',
+      primary9: '$crimson9',
+      primary10: '$crimson10',
+      primary11: '$crimson11',
+      primary12: '$crimson12',
+      primaryA1: '$crimsonA1',
+      primaryA2: '$crimsonA2',
+      primaryA3: '$crimsonA3',
+      primaryA4: '$crimsonA4',
+      primaryA5: '$crimsonA5',
+      primaryA6: '$crimsonA6',
+      primaryA7: '$crimsonA7',
+      primaryA8: '$crimsonA8',
+      primaryA9: '$crimsonA9',
+      primaryA10: '$crimsonA10',
+      primaryA11: '$crimsonA11',
+      primaryA12: '$crimsonA12',
 
       // Gray
       gray1: '$slate1',
@@ -192,6 +199,7 @@ export const {
       '12px': '48px',
       '14px': '56px',
       '16px': '64px',
+      '18px': '72px',
       '20px': '80px',
       '24px': '96px',
       '28px': '112px',
@@ -226,6 +234,7 @@ export const {
       12: '3rem',
       14: '3.5rem',
       16: '4rem',
+      18: '4.5rem',
       20: '5rem',
       24: '6rem',
       28: '7rem',
@@ -315,15 +324,14 @@ export const {
       '3xl': '1.5rem',
       full: '9999px',
     },
-
     shadows: {
       xs: '0px 1px 2px 0px rgba(0,0,0,0.05)',
-      xsPrimary: '0px 1px 2px 0px rgba(0,0,0,0.05), 0px 0px 0px 4px #c4eaef',
+      xsPrimary: '0px 1px 2px 0px rgba(0,0,0,0.05), 0px 0px 0px 4px #f9d8e7',
       xsError: '0px 1px 2px 0px rgba(0,0,0,0.05), 0px 0px 0px 4px #fdd8d3',
       xsGray: '0px 1px 2px 0px rgba(0,0,0,0.05), 0px 0px 0px 4px #eceef0',
       sm: '0px 1px 3px 0px rgba(0,0,0,0.1), 0px 1px 2px 0px rgba(0,0,0,0.06)',
       smPrimary:
-        '0px 1px 3px 0px rgba(0,0,0,0.1), 0px 1px 2px 0px rgba(0,0,0,0.06), 0px 0px 0px 4px #c4eaef',
+        '0px 1px 3px 0px rgba(0,0,0,0.1), 0px 1px 2px 0px rgba(0,0,0,0.06), 0px 0px 0px 4px #f9d8e7',
       smError:
         '0px 1px 3px 0px rgba(0,0,0,0.1), 0px 1px 2px 0px rgba(0,0,0,0.06), 0px 0px 0px 4px #fdd8d3',
       smGray:
@@ -351,7 +359,10 @@ export const {
     },
     transitions: {},
   },
-  media: {},
+  media: {
+    tablet: '(min-width: 48rem)',
+    desktop: '(min-width: 64rem)',
+  },
   utils: {
     // Margin
     m: (value) => ({
