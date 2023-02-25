@@ -20,6 +20,10 @@ const ButtonStyled = styled('button', {
     cursor: 'not-allowed',
   },
 
+  '&:focus': {
+    outline: 'none',
+  },
+
   variants: {
     size: {
       sm: {
@@ -184,6 +188,10 @@ const ButtonStyled = styled('button', {
           bgColor: '$gray3',
         },
 
+        '&:focus': {
+          boxShadow: '$xsGray',
+        },
+
         '&:disabled, &[disabled]': {
           bgColor: '$gray1',
           color: '$gray6',
@@ -199,6 +207,10 @@ const ButtonStyled = styled('button', {
           bgColor: '$primary3',
         },
 
+        '&:focus': {
+          boxShadow: '$xsPrimary',
+        },
+
         '&:disabled, &[disabled]': {
           bgColor: '$primary1',
           color: '$primary6',
@@ -212,6 +224,10 @@ const ButtonStyled = styled('button', {
 
         '&:hover': {
           bgColor: '$error3',
+        },
+
+        '&:focus': {
+          boxShadow: '$xsError',
         },
 
         '&:disabled, &[disabled]': {

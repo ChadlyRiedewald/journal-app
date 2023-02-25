@@ -1,21 +1,12 @@
 import { styled } from 'stitches.config';
 import { ReactComponent as Logo } from 'assets/icons/test-logo.svg';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu-01.svg';
-import { Button } from 'components/button';
+import { Button } from 'components/buttons';
 import { Heading, Text } from 'components/typography';
 import DesktopOnly from 'components/desktopOnly';
 import MobileOnly from 'components/mobileOnly';
-
-const Wrapper = styled('div', {
-  d: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: '$16',
-
-  '@desktop': {
-    gap: '$24',
-  },
-});
+import { SignUp } from './SignUp';
+import { Flex, flex } from 'components/layout';
 
 const Container = styled('div', {
   w: '$full',
@@ -35,66 +26,50 @@ const Header = styled('header', {
   },
 });
 
-const Navigation = styled('nav', {
-  d: 'flex',
-  alignItems: 'center',
-});
-
-const ButtonWrapper = styled('div', {
-  d: 'flex',
-  gap: '$3',
-});
-
-const Side = styled('div', {
-  flex: 1,
-});
-
-const Hero = styled('div', {
-  d: 'flex',
-  flexDirection: 'column',
-
-  '@desktop': {
-    flexDirection: 'revert',
-  },
-});
-
-const HeroText = styled('div', {
-  d: 'flex',
-  flexDirection: 'column',
-  gap: '$6',
-
-  '@tablet': {
-    maxW: '$2xl',
-  },
-});
+const Wrapper = styled(Flex);
+const Side = styled(Flex, { flex: 1 });
+const Navigation = styled('nav', { ...flex });
+const Hero = styled(Flex);
+const HeroText = styled(Flex);
 
 const Home = () => {
   return (
-    <Wrapper>
+    <Wrapper
+      direction="column"
+      align="center"
+      css={{
+        gap: '$16',
+        '@desktop': { gap: '$24' },
+      }}
+    >
       <Header>
         <Container>
-          <Navigation>
+          <Navigation align="center">
             <Logo />
             <Side />
             <MobileOnly>
               <MenuIcon />
             </MobileOnly>
             <DesktopOnly>
-              <ButtonWrapper>
+              <Flex css={{ gap: '$3' }}>
                 <Button size="lg" variant="tertiaryGray">
                   Log in
                 </Button>
-                <Button size="lg" variant="primary">
-                  Sign up
-                </Button>
-              </ButtonWrapper>
+                <SignUp />
+              </Flex>
             </DesktopOnly>
           </Navigation>
         </Container>
       </Header>
       <Container>
-        <Hero>
-          <HeroText>
+        <Hero direction={{ '@initial': 'column', '@desktop': 'row' }}>
+          <HeroText
+            direction="column"
+            css={{
+              gap: '$4',
+              '@tablet': { maxW: '$2xl', gap: '$6' },
+            }}
+          >
             <Heading
               size={{
                 '@initial': 'md',
@@ -102,6 +77,7 @@ const Home = () => {
               }}
               as="h1"
               weight="semibold"
+              color="gray12"
             >
               Transform your life through the power of journaling
             </Heading>
@@ -111,6 +87,11 @@ const Home = () => {
                 '@tablet': 'xl',
               }}
               weight="regular"
+              color="gray11"
+              css={{
+                mb: '$4',
+                '@tablet': { mb: 0 },
+              }}
             >
               Capture your thoughts, reflect on your experiences, explore your
               emotions, and ignite your potential for personal growth and
