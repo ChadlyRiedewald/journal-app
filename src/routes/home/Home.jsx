@@ -1,12 +1,14 @@
 import { styled } from 'stitches.config';
-import { ReactComponent as Logo } from 'assets/icons/test-logo.svg';
+import { ReactComponent as Logo } from 'assets/logo-text.svg';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu-01.svg';
-import { Button } from 'components/buttons';
+import { ReactComponent as CloseIcon } from 'assets/icons/x-close.svg';
+import { ReactComponent as ShapesDesktop } from 'assets/shapes-desktop.svg';
 import { Heading, Text } from 'components/typography';
 import DesktopOnly from 'components/desktopOnly';
 import MobileOnly from 'components/mobileOnly';
-import { SignUp } from './SignUp';
 import { Flex, flex } from 'components/layout';
+import { AuthDialog } from './AuthDialog';
+import { useState } from 'react';
 
 const Container = styled('div', {
   w: '$full',
@@ -32,7 +34,25 @@ const Navigation = styled('nav', { ...flex });
 const Hero = styled(Flex);
 const HeroText = styled(Flex);
 
+const MobileMenu = styled('nav', {
+  pos: 'absolute',
+  top: 73,
+  left: 0,
+  zIndex: '$dropdown',
+  bgColor: '$gray1',
+  w: '100vw',
+  boxShadow: '$lg',
+  d: 'flex',
+  flexDirection: 'column',
+  gap: 12,
+  p: 16,
+});
+
 const Home = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
     <Wrapper
       direction="column"
@@ -48,25 +68,65 @@ const Home = () => {
             <Logo />
             <Side />
             <MobileOnly>
-              <MenuIcon />
+              {isOpen ? (
+                <CloseIcon onClick={toggleMenu} />
+              ) : (
+                <MenuIcon onClick={toggleMenu} />
+              )}
+              {isOpen && (
+                <MobileMenu>
+                  <AuthDialog
+                    dialog="signup"
+                    triggerText="Sign up"
+                    size="lg"
+                    variant="primary"
+                    fluid
+                  />
+                  <AuthDialog
+                    dialog="login"
+                    triggerText="Log in"
+                    size="lg"
+                    variant="secondaryGray"
+                    fluid
+                  />
+                </MobileMenu>
+              )}
             </MobileOnly>
             <DesktopOnly>
               <Flex css={{ gap: '$3' }}>
-                <Button size="lg" variant="tertiaryGray">
-                  Log in
-                </Button>
-                <SignUp />
+                <AuthDialog
+                  dialog="login"
+                  triggerText="Log in"
+                  size="lg"
+                  variant="tertiaryGray"
+                />
+                <AuthDialog
+                  dialog="signup"
+                  triggerText="Sign up"
+                  size="lg"
+                  variant="primary"
+                />
               </Flex>
             </DesktopOnly>
           </Navigation>
         </Container>
       </Header>
       <Container>
-        <Hero direction={{ '@initial': 'column', '@desktop': 'row' }}>
+        <Hero
+          direction={{ '@initial': 'column', '@desktop': 'row' }}
+          align="center"
+          css={{
+            gap: '$12',
+            '& svg': { size: '$full' },
+            '@desktop': { gap: '$8', '& svg': { minW: 448 } },
+          }}
+        >
           <HeroText
             direction="column"
             css={{
               gap: '$4',
+              flexShrink: 1,
+              pos: 'relative',
               '@tablet': { maxW: '$2xl', gap: '$6' },
             }}
           >
@@ -95,9 +155,11 @@ const Home = () => {
             >
               Capture your thoughts, reflect on your experiences, explore your
               emotions, and ignite your potential for personal growth and
-              self-discovery, one entry at a time.
+              self-discovery.
             </Text>
-            <Button
+            <AuthDialog
+              dialog="signup"
+              triggerText="Get started - It's free!"
               size={{
                 '@initial': 'xl',
                 '@tablet': '2xl',
@@ -107,11 +169,11 @@ const Home = () => {
                 '@tablet': false,
               }}
               variant="primary"
-            >
-              Get started - It's free!
-            </Button>
+            />
           </HeroText>
-          <Side />
+          <DesktopOnly>
+            <ShapesDesktop />
+          </DesktopOnly>
         </Hero>
       </Container>
     </Wrapper>

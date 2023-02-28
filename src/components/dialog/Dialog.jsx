@@ -16,6 +16,7 @@ export const DialogOverlay = styled(Dialog.Overlay, {
   pos: 'fixed',
   inset: 0,
   animation: `${overlayShow} 300ms cubic-bezier(0.16, 1, 0.3, 1)`,
+  zIndex: '$overlay',
 });
 
 export const DialogContent = styled(Dialog.Content, {
@@ -26,14 +27,20 @@ export const DialogContent = styled(Dialog.Content, {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   boxShadow: '$lg',
-  w: 'calc(100% - 32px)',
+  w: 'calc(100% - 16px)',
   maxW: '480px',
-  maxH: '85vh',
-  p: 32,
+  maxH: '90vh',
+  p: '32px 24px',
   d: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   gap: 32,
   animation: `${contentShow} 300ms cubic-bezier(0.16, 1, 0.3, 1)`,
+  zIndex: '$dialog',
+
   '&:focus': { outline: 'none' },
+
+  '@tablet': {
+    p: 48,
+  },
 });

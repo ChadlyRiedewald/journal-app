@@ -5,7 +5,7 @@ const ButtonStyled = styled('button', {
   cursor: 'pointer',
   br: '$lg',
   maxW: '$fit',
-  transition: '0.2s ease-in-out',
+  transition: '$ease',
   bg: 'none',
   border: 'none',
 

@@ -1,6 +1,6 @@
-import { styled } from 'stitches.config';
+import { styled, css } from 'stitches.config';
 
-const ButtonStyled = styled('button', {
+export const button = css({
   fw: '$semibold',
   cursor: 'pointer',
   br: '$lg',
@@ -10,7 +10,7 @@ const ButtonStyled = styled('button', {
   gap: '$2',
   maxW: '$fit',
   boxShadow: '$xs',
-  transition: '0.2s ease-in-out',
+  transition: '$ease',
 
   '& svg': {
     size: '$5',
@@ -251,6 +251,8 @@ const ButtonStyled = styled('button', {
     fluid: 'false',
   },
 });
+
+const ButtonStyled = styled('button', { ...button });
 
 export const Button = ({ iconLeading, iconTrailing, children, ...props }) => {
   return (

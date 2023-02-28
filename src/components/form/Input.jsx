@@ -1,11 +1,7 @@
 import { styled } from 'stitches.config';
-import { Text } from '../typography';
-
-const Wrapper = styled('div', {
-  d: 'flex',
-  flexDirection: 'column',
-  gap: 6,
-});
+import { Text } from 'components/typography';
+import { Flex } from 'components/layout';
+import { Label } from './Label';
 
 const InputStyled = styled('input', {
   color: '$gray12',
@@ -16,7 +12,7 @@ const InputStyled = styled('input', {
   py: 8,
   br: '$lg',
   bgColor: '$gray1',
-  transition: '0.2s ease-in-out',
+  transition: '$ease',
   boxShadow: '$xs',
 
   '&::placeholder': {
@@ -31,16 +27,14 @@ const InputStyled = styled('input', {
 
 export const Input = ({ label, hint, ...props }) => {
   return (
-    <Wrapper>
-      <Text size="sm" weight="medium">
-        {label}
-      </Text>
-      <InputStyled {...props} />
+    <Flex direction="column" css={{ gap: 6 }}>
+      <Label htmlFor={label}>{label}</Label>
+      <InputStyled {...props} id={label} />
       {hint && (
         <Text size="sm" weight="regular" color="gray11">
           {hint}
         </Text>
       )}
-    </Wrapper>
+    </Flex>
   );
 };
