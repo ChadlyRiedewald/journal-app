@@ -1,6 +1,6 @@
-import { styled } from 'stitches.config';
+import { styled, css } from 'stitches.config';
 
-const ButtonStyled = styled('button', {
+export const button = css({
   fw: '$semibold',
   cursor: 'pointer',
   br: '$lg',
@@ -10,7 +10,7 @@ const ButtonStyled = styled('button', {
   gap: '$2',
   maxW: '$fit',
   boxShadow: '$xs',
-  transition: '0.2s ease-in-out',
+  transition: '$ease',
 
   '& svg': {
     size: '$5',
@@ -20,33 +20,37 @@ const ButtonStyled = styled('button', {
     cursor: 'not-allowed',
   },
 
+  '&:focus': {
+    outline: 'none',
+  },
+
   variants: {
     size: {
-      xs: {
+      sm: {
         fs: '$sm',
         h: '36px',
         px: '14px',
         py: '8px',
       },
-      sm: {
+      md: {
         fs: '$sm',
         h: '40px',
         px: '16px',
         py: '10px',
       },
-      md: {
+      lg: {
         fs: '$md',
         h: '44px',
         px: '18px',
         py: '10px',
       },
-      lg: {
+      xl: {
         fs: '$md',
         h: '48px',
         px: '20px',
         py: '12px',
       },
-      xl: {
+      '2xl': {
         fs: '$lg',
         h: '60px',
         px: '28px',
@@ -184,6 +188,10 @@ const ButtonStyled = styled('button', {
           bgColor: '$gray3',
         },
 
+        '&:focus': {
+          boxShadow: '$xsGray',
+        },
+
         '&:disabled, &[disabled]': {
           bgColor: '$gray1',
           color: '$gray6',
@@ -197,6 +205,10 @@ const ButtonStyled = styled('button', {
 
         '&:hover': {
           bgColor: '$primary3',
+        },
+
+        '&:focus': {
+          boxShadow: '$xsPrimary',
         },
 
         '&:disabled, &[disabled]': {
@@ -214,6 +226,10 @@ const ButtonStyled = styled('button', {
           bgColor: '$error3',
         },
 
+        '&:focus': {
+          boxShadow: '$xsError',
+        },
+
         '&:disabled, &[disabled]': {
           bgColor: '$error1',
           color: '$error6',
@@ -224,6 +240,9 @@ const ButtonStyled = styled('button', {
       true: {
         maxW: 'revert',
       },
+      false: {
+        maxW: '$fit',
+      },
     },
   },
   defaultVariants: {
@@ -232,6 +251,8 @@ const ButtonStyled = styled('button', {
     fluid: 'false',
   },
 });
+
+const ButtonStyled = styled('button', { ...button });
 
 export const Button = ({ iconLeading, iconTrailing, children, ...props }) => {
   return (

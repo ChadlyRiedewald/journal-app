@@ -1,5 +1,14 @@
 import { createStitches } from '@stitches/react';
-import { cyan, cyanA, slate, slateA, tomato, tomatoA } from '@radix-ui/colors';
+import {
+  cyan,
+  cyanA,
+  slate,
+  slateA,
+  tomato,
+  tomatoA,
+  blackA,
+  whiteA,
+} from '@radix-ui/colors';
 
 export const {
   styled,
@@ -19,6 +28,8 @@ export const {
       ...cyanA,
       ...tomato,
       ...tomatoA,
+      ...blackA,
+      ...whiteA,
 
       transparent: 'transparent',
       white: '#ffffff',
@@ -104,41 +115,6 @@ export const {
     },
     space: {
       px: '1px',
-      // Values in px
-      '0.5px': '2px',
-      '1px': '4px',
-      '1.5px': '6px',
-      '2px': '8px',
-      '2.5px': '10px',
-      '3px': '12px',
-      '3.5px': '14px',
-      '4px': '16px',
-      '5px': '20px',
-      '6px': '24px',
-      '7px': '28px',
-      '8px': '32px',
-      '9px': '36px',
-      '10px': '40px',
-      '12px': '48px',
-      '14px': '56px',
-      '16px': '64px',
-      '20px': '80px',
-      '24px': '96px',
-      '28px': '112px',
-      '32px': '128px',
-      '36px': '144px',
-      '40px': '160px',
-      '44px': '176px',
-      '48px': '192px',
-      '52px': '208px',
-      '56px': '224px',
-      '60px': '240px',
-      '64px': '256px',
-      '72px': '288px',
-      '80px': '320px',
-      '96px': '384px',
-
-      // Values in rem
       0.5: '0.125rem',
       1: '0.25rem',
       1.5: '0.375rem',
@@ -174,41 +150,6 @@ export const {
     },
     sizes: {
       px: '1px',
-      // Values in px
-      '0.5px': '2px',
-      '1px': '4px',
-      '1.5px': '6px',
-      '2px': '8px',
-      '2.5px': '10px',
-      '3px': '12px',
-      '3.5px': '14px',
-      '4px': '16px',
-      '5px': '20px',
-      '6px': '24px',
-      '7px': '28px',
-      '8px': '32px',
-      '9px': '36px',
-      '10px': '40px',
-      '12px': '48px',
-      '14px': '56px',
-      '16px': '64px',
-      '20px': '80px',
-      '24px': '96px',
-      '28px': '112px',
-      '32px': '128px',
-      '36px': '144px',
-      '40px': '160px',
-      '44px': '176px',
-      '48px': '192px',
-      '52px': '208px',
-      '56px': '224px',
-      '60px': '240px',
-      '64px': '256px',
-      '72px': '288px',
-      '80px': '320px',
-      '96px': '384px',
-
-      // Values in rem
       0.5: '0.125rem',
       1: '0.25rem',
       1.5: '0.375rem',
@@ -226,6 +167,7 @@ export const {
       12: '3rem',
       14: '3.5rem',
       16: '4rem',
+      18: '4.5rem',
       20: '5rem',
       24: '6rem',
       28: '7rem',
@@ -294,16 +236,6 @@ export const {
       sm: '-0.02em',
       md: '0',
     },
-    borderWidths: {
-      none: '0',
-      xs: '1px',
-      sm: '2px',
-      md: '4px',
-      lg: '6px',
-      xl: '8px',
-      '2xl': '10px',
-    },
-    borderStyles: {},
     radii: {
       none: '0',
       xs: '0.125rem',
@@ -315,7 +247,6 @@ export const {
       '3xl': '1.5rem',
       full: '9999px',
     },
-
     shadows: {
       xs: '0px 1px 2px 0px rgba(0,0,0,0.05)',
       xsPrimary: '0px 1px 2px 0px rgba(0,0,0,0.05), 0px 0px 0px 4px #c4eaef',
@@ -349,9 +280,14 @@ export const {
       toast: 1700,
       tooltip: 1800,
     },
-    transitions: {},
+    transitions: {
+      ease: '0.2s ease-in-out',
+    },
   },
-  media: {},
+  media: {
+    tablet: '(min-width: 48rem)',
+    desktop: '(min-width: 64rem)',
+  },
   utils: {
     // Margin
     m: (value) => ({

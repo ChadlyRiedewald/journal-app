@@ -25,9 +25,16 @@ export const Text = styled('p', {
       semibold: { fw: '$semibold' },
       bold: { fw: '$bold' },
     },
+    color: {
+      primary11: { color: '$primary11' },
+      primary12: { color: '$primary12' },
+      gray11: { color: '$gray11' },
+      gray12: { color: '$gray12' },
+    },
   },
   defaultVariants: {
     size: 'md',
     weight: 'regular',
+    color: 'gray12',
   },
 });
