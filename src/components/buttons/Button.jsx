@@ -239,6 +239,7 @@ export const button = css({
     fluid: {
       true: {
         maxW: 'revert',
+        flex: 1,
       },
       false: {
         maxW: '$fit',
