@@ -1,16 +1,16 @@
+import { NavLink as NL } from 'react-router-dom';
+import { keyframes, styled } from 'stitches.config';
 import { Text } from 'components/typography';
+import { Flex } from 'components/layout';
+import { Avatar } from 'components/avatar';
 import { QuoteDialog } from './QuoteDialog';
 import { RandomQuoteDialog } from './RandomQuoteDialog';
 import { SignOutDialog } from './SignOutDialog';
-import { keyframes, styled } from 'stitches.config';
-import { NavLink as NL } from 'react-router-dom';
 import { navLink } from './NavLink';
 import { ReactComponent as Logo } from 'assets/logo-text.svg';
 import { ReactComponent as HomeIcon } from 'assets/icons/home-line.svg';
 import { ReactComponent as JournalIcon } from 'assets/icons/list.svg';
 import { ReactComponent as SettingsIcon } from 'assets/icons/settings-01.svg';
-import { Flex } from 'components/layout';
-import { Avatar } from 'components/avatar';
 
 const NavLink = styled(NL, { ...navLink });
 

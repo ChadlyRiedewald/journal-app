@@ -10,7 +10,7 @@ const AvatarRoot = styled(AvatarPrimitive.Root, {
   userSelect: 'none',
   br: '$full',
   bgColor: '$blackA3',
-  size: 48,
+  size: '$12',
 });
 
 const AvatarImage = styled(AvatarPrimitive.Image, {

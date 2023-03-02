@@ -1,15 +1,15 @@
-import { Flex } from 'components/layout';
+import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import { styled } from 'stitches.config';
+import { Flex } from 'components/layout';
+import { Button } from 'components/buttons';
+import { Sidebar } from './Sidebar';
+import DesktopOnly from 'components/desktopOnly';
+import MobileOnly from 'components/mobileOnly';
 import { ReactComponent as Logo } from 'assets/logo-text.svg';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu-01.svg';
 import { ReactComponent as CloseIcon } from 'assets/icons/x-close.svg';
-import { Outlet } from 'react-router-dom';
-import { Button } from 'components/buttons';
-import DesktopOnly from 'components/desktopOnly';
-import { Sidebar } from './Sidebar';
-import { useState } from 'react';
-import MobileOnly from 'components/mobileOnly';
 
 const Topbar = styled('div', {
   w: '$full',
@@ -61,12 +61,13 @@ const Dashboard = () => {
       <Flex
         direction="column"
         css={{
-          '@desktop': {
-            ml: 280,
-          },
-          pt: 64,
+          pt: 72,
           h: '100vh',
           bgColor: '$gray2',
+          '@desktop': {
+            ml: 280,
+            pt: 64,
+          },
         }}
       >
         <Outlet />

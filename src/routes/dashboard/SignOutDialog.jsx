@@ -1,13 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import * as Dialog from '@radix-ui/react-dialog';
 import { styled } from 'stitches.config';
 import { DialogContent, DialogOverlay } from 'components/dialog';
 import { Button, CloseButton } from 'components/buttons';
-import { ReactComponent as SignOutIcon } from 'assets/icons/log-out-01.svg';
-import { navLink } from './NavLink';
 import { Flex } from 'components/layout';
 import { FeaturedIcon } from 'components/featuredIcon';
 import { Heading, Text } from 'components/typography';
-import { useNavigate } from 'react-router-dom';
+import { navLink } from './NavLink';
+import { ReactComponent as SignOutIcon } from 'assets/icons/log-out-01.svg';
 
 const Trigger = styled(Dialog.Trigger, { ...navLink });
 

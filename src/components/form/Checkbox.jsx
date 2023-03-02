@@ -1,8 +1,8 @@
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
-import { ReactComponent as CheckIcon } from 'assets/icons/check.svg';
 import { styled } from 'stitches.config';
 import { Flex } from 'components/layout';
 import { Label } from './Label';
+import { ReactComponent as CheckIcon } from 'assets/icons/check.svg';
 
 const CheckboxRoot = styled(CheckboxPrimitive.Root, {
   all: 'unset',
@@ -39,15 +39,15 @@ const CheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
 
 const LabelStyled = styled(Label, { textTransform: 'none' });
 
-export const Checkbox = ({ label }) => {
+export const Checkbox = ({ label, id, ...props }) => {
   return (
     <Flex css={{ gap: '$2' }} align="center">
-      <CheckboxRoot id="c1">
+      <CheckboxRoot id={id} {...props}>
         <CheckboxIndicator asChild>
           <CheckIcon />
         </CheckboxIndicator>
       </CheckboxRoot>
-      {label && <LabelStyled htmlFor="c1">{label}</LabelStyled>}
+      {label && <LabelStyled htmlFor={id}>{label}</LabelStyled>}
     </Flex>
   );
 };

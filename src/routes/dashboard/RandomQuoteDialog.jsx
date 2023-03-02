@@ -1,15 +1,15 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import * as Dialog from '@radix-ui/react-dialog';
 import { styled } from 'stitches.config';
 import { DialogContent, DialogOverlay } from 'components/dialog';
 import { CloseButton } from 'components/buttons';
-import { ReactComponent as RandomQuoteIcon } from 'assets/icons/shuffle-01.svg';
-import { navLink } from './NavLink';
 import { Flex } from 'components/layout';
 import { FeaturedIcon } from 'components/featuredIcon';
 import { Heading } from 'components/typography';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Quote } from 'components/quote';
+import { navLink } from './NavLink';
+import { ReactComponent as RandomQuoteIcon } from 'assets/icons/shuffle-01.svg';
 
 const Trigger = styled(Dialog.Trigger, { ...navLink });
 
@@ -26,7 +26,6 @@ export const RandomQuoteDialog = () => {
       setError(err);
     }
   };
-  console.log(results, error);
 
   useEffect(() => {
     loadData();

@@ -1,14 +1,14 @@
+import { useState } from 'react';
 import { styled } from 'stitches.config';
-import { ReactComponent as Logo } from 'assets/logo-text.svg';
-import { ReactComponent as MenuIcon } from 'assets/icons/menu-01.svg';
-import { ReactComponent as CloseIcon } from 'assets/icons/x-close.svg';
-import { ReactComponent as ShapesDesktop } from 'assets/shapes-desktop.svg';
 import { Heading, Text } from 'components/typography';
 import DesktopOnly from 'components/desktopOnly';
 import MobileOnly from 'components/mobileOnly';
 import { Flex, flex } from 'components/layout';
 import { AuthDialog } from './AuthDialog';
-import { useState } from 'react';
+import { ReactComponent as Logo } from 'assets/logo-text.svg';
+import { ReactComponent as MenuIcon } from 'assets/icons/menu-01.svg';
+import { ReactComponent as CloseIcon } from 'assets/icons/x-close.svg';
+import { ReactComponent as ShapesDesktop } from 'assets/shapes-desktop.svg';
 
 const Container = styled('div', {
   w: '$full',

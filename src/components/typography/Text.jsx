@@ -30,6 +30,8 @@ export const Text = styled('p', {
       primary12: { color: '$primary12' },
       gray11: { color: '$gray11' },
       gray12: { color: '$gray12' },
+      error11: { color: '$error11' },
+      error12: { color: '$error12' },
     },
   },
   defaultVariants: {
