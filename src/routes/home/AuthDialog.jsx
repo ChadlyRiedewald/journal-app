@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { styled } from 'stitches.config';
-import { DialogContent, DialogOverlay } from 'components/dialog';
-import { button, CloseButton } from 'components/buttons';
+import { DialogClose, DialogContent, DialogOverlay } from 'components/dialog';
+import { button } from 'components/button';
 import { LogIn } from './LogIn';
 import { SignUp } from './SignUp';
 import { ForgotPassword } from './ForgotPassword';
@@ -30,9 +30,7 @@ export const AuthDialog = ({
       <Dialog.Portal>
         <DialogOverlay />
         <DialogContent aria-describedby={undefined}>
-          <Dialog.Close asChild>
-            <CloseButton css={{ pos: 'absolute', right: 16, top: 16 }} />
-          </Dialog.Close>
+          <DialogClose />
           {dialogState === 'login' && <LogIn setDialogState={setDialogState} />}
           {dialogState === 'signup' && (
             <SignUp setDialogState={setDialogState} />

@@ -3,9 +3,9 @@ import { keyframes, styled } from 'stitches.config';
 import { Text } from 'components/typography';
 import { Flex } from 'components/layout';
 import { Avatar } from 'components/avatar';
-import { QuoteDialog } from './QuoteDialog';
-import { RandomQuoteDialog } from './RandomQuoteDialog';
-import { SignOutDialog } from './SignOutDialog';
+import { QuoteOfTheDay } from './QuoteOfTheDay';
+import { RandomQuote } from './RandomQuote';
+import { SignOut } from './SignOut';
 import { navLink } from './NavLink';
 import { ReactComponent as Logo } from 'assets/logo-text.svg';
 import { ReactComponent as HomeIcon } from 'assets/icons/home-line.svg';
@@ -118,10 +118,10 @@ export const Sidebar = () => {
             </Text>
           </ListItem>
           <ListItem>
-            <QuoteDialog />
+            <QuoteOfTheDay />
           </ListItem>
           <ListItem>
-            <RandomQuoteDialog />
+            <RandomQuote />
           </ListItem>
         </List>
         <List css={{ mt: 'auto' }}>
@@ -144,7 +144,7 @@ export const Sidebar = () => {
             </NavLink>
           </ListItem>
           <ListItem>
-            <SignOutDialog />
+            <SignOut />
           </ListItem>
         </List>
         <AccountInfo />

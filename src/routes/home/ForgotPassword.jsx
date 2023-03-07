@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Flex } from 'components/layout';
 import { Form, Input } from 'components/form';
-import { Button } from 'components/buttons';
+import { Button } from 'components/button';
 import { FeaturedIcon } from 'components/featuredIcon';
 import { Heading, Text } from 'components/typography';
 import { ReactComponent as ArrowLeftIcon } from 'assets/icons/arrow-narrow-left.svg';

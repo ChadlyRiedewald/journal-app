@@ -2,18 +2,17 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import * as Dialog from '@radix-ui/react-dialog';
 import { styled } from 'stitches.config';
-import { DialogContent, DialogOverlay } from 'components/dialog';
-import { CloseButton } from 'components/buttons';
+import { DialogClose, DialogContent, DialogOverlay } from 'components/dialog';
 import { Flex } from 'components/layout';
 import { FeaturedIcon } from 'components/featuredIcon';
 import { Heading } from 'components/typography';
 import { Quote } from 'components/quote';
 import { navLink } from './NavLink';
-import { ReactComponent as QuoteIcon } from 'assets/icons/stars-03.svg';
+import { ReactComponent as RandomQuoteIcon } from 'assets/icons/shuffle-01.svg';
 
 const Trigger = styled(Dialog.Trigger, { ...navLink });
 
-export const QuoteDialog = () => {
+export const RandomQuote = () => {
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
 
@@ -30,25 +29,22 @@ export const QuoteDialog = () => {
   useEffect(() => {
     loadData();
   }, []);
-
   return (
     <Dialog.Root>
       <Trigger>
-        <QuoteIcon />
-        Quote of the day
+        <RandomQuoteIcon />
+        Random Quote
       </Trigger>
       <Dialog.Portal>
         <DialogOverlay />
         <DialogContent aria-describedby={undefined}>
-          <Dialog.Close asChild>
-            <CloseButton css={{ pos: 'absolute', right: 16, top: 16 }} />
-          </Dialog.Close>
+          <DialogClose />
           <Flex
             css={{ gap: '$4', w: '$full' }}
             direction="column"
             align="center"
           >
-            <FeaturedIcon icon={<QuoteIcon />} />
+            <FeaturedIcon icon={<RandomQuoteIcon />} />
             <Flex
               direction="column"
               align="center"
@@ -64,7 +60,7 @@ export const QuoteDialog = () => {
                   weight="semibold"
                   color="gray12"
                 >
-                  Quote of the day
+                  Random Quote
                 </Heading>
               </Dialog.Title>
             </Flex>

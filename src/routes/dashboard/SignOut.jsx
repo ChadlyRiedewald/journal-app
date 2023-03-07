@@ -1,17 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import * as Dialog from '@radix-ui/react-dialog';
 import { styled } from 'stitches.config';
-import { DialogContent, DialogOverlay } from 'components/dialog';
-import { Button, CloseButton } from 'components/buttons';
+import { DialogClose, DialogContent, DialogOverlay } from 'components/dialog';
+import { Button } from 'components/button';
 import { Flex } from 'components/layout';
 import { FeaturedIcon } from 'components/featuredIcon';
 import { Heading, Text } from 'components/typography';
 import { navLink } from './NavLink';
 import { ReactComponent as SignOutIcon } from 'assets/icons/log-out-01.svg';
+import { signOutFirebase } from 'app/firebase';
+import { useState } from 'react';
+import { delay } from '../../app/util';
 
 const Trigger = styled(Dialog.Trigger, { ...navLink });
 
-export const SignOutDialog = () => {
+export const SignOut = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -23,9 +27,7 @@ export const SignOutDialog = () => {
       <Dialog.Portal>
         <DialogOverlay />
         <DialogContent aria-describedby={undefined}>
-          <Dialog.Close asChild>
-            <CloseButton css={{ pos: 'absolute', right: 16, top: 16 }} />
-          </Dialog.Close>
+          <DialogClose />
           <Flex
             css={{ gap: '$4', w: '$full' }}
             direction="column"
@@ -56,16 +58,26 @@ export const SignOutDialog = () => {
             </Flex>
           </Flex>
           <Flex css={{ gap: 12, w: '100%' }}>
-            <Dialog.Close asChild>
-              <Button variant="secondaryGray" size="lg" fluid>
-                Cancel
-              </Button>
-            </Dialog.Close>
+            <Button variant="secondaryGray" size="lg" fluid>
+              Cancel
+            </Button>
             <Button
               variant="primary"
               size="lg"
               fluid
-              onClick={() => navigate('/')}
+              loading={loading}
+              onClick={async () => {
+                setLoading(true);
+                try {
+                  await delay(200);
+                  await signOutFirebase();
+                  navigate('/');
+                } catch (error) {
+                  console.error(error);
+                } finally {
+                  setLoading(false);
+                }
+              }}
             >
               Confirm
             </Button>

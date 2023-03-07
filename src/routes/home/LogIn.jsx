@@ -5,10 +5,11 @@ import { Formik } from 'formik';
 import { Flex } from 'components/layout';
 import { Checkbox, Form, Input } from 'components/form';
 import { Heading, Text } from 'components/typography';
-import { Button } from 'components/buttons';
+import { Button } from 'components/button';
 import { Link } from './Link';
 import { ReactComponent as Logo } from 'assets/logo.svg';
 import { ReactComponent as GoogleIcon } from 'assets/icons/google.svg';
+import { signInFirebase } from 'app/firebase';
 
 const initialValues = {
   email: '',
@@ -27,13 +28,34 @@ const validationSchema = Yup.object({
 const LogInForm = ({ setDialogState }) => {
   const navigate = useNavigate();
 
+  function handleError(errorCode) {
+    switch (errorCode) {
+      case 'auth/user-not-found':
+        return {
+          ['email']: 'User not found',
+        };
+      case 'auth/wrong-password':
+        return {
+          ['password']: 'Wrong password',
+        };
+      default:
+        return '';
+    }
+  }
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
-        console.log(values);
-        navigate('/dashboard');
+      onSubmit={async (values, { setErrors, setSubmitting }) => {
+        try {
+          await signInFirebase(values.email, values.password);
+          navigate('/dashboard');
+        } catch (error) {
+          setErrors(handleError(error.code));
+        } finally {
+          setSubmitting(false);
+        }
       }}
     >
       {({ isSubmitting, isValid, dirty, setFieldValue, values }) => (

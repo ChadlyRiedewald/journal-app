@@ -1,5 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { keyframes, styled } from 'stitches.config';
+import { ReactComponent as Icon } from 'assets/icons/x-close.svg';
 
 const overlayShow = keyframes({
   '0%': { opacity: 0 },
@@ -44,3 +45,37 @@ export const DialogContent = styled(Dialog.Content, {
     p: 48,
   },
 });
+
+const CloseButtonStyled = styled(Dialog.Close, {
+  all: 'unset',
+  cursor: 'pointer',
+  br: '$lg',
+  maxW: '$fit',
+  transition: '$ease',
+  p: 10,
+  color: '$gray11',
+  pos: 'absolute',
+  right: 16,
+  top: 16,
+
+  '& svg': {
+    size: '$5',
+  },
+
+  '&:hover': {
+    bgColor: '$gray3',
+  },
+
+  '&:focus': {
+    outline: 'none',
+    boxShadow: '$xsGray',
+  },
+});
+
+export const DialogClose = ({ ...props }) => {
+  return (
+    <CloseButtonStyled {...props} aria-label="Close">
+      <Icon />
+    </CloseButtonStyled>
+  );
+};

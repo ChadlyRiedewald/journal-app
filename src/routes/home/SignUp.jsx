@@ -3,20 +3,20 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { Flex } from 'components/layout';
 import { Form, Input } from 'components/form';
-import { Button } from 'components/buttons';
+import { Button } from 'components/button';
 import { Heading, Text } from 'components/typography';
 import { Link } from './Link';
 import { ReactComponent as GoogleIcon } from 'assets/icons/google.svg';
 import { ReactComponent as Logo } from 'assets/logo.svg';
+import { signUpFirebase } from 'app/firebase';
+import { useNavigate } from 'react-router-dom';
 
 const initialValues = {
-  name: '',
   email: '',
   password: '',
 };
 
 const validationSchema = Yup.object({
-  name: Yup.string().required(`Can't be empty`),
   email: Yup.string()
     .email(`Please enter a valid email address`)
     .required(`Can't be empty`),
@@ -26,29 +26,49 @@ const validationSchema = Yup.object({
 });
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
+
+  function handleError(errorCode) {
+    switch (errorCode) {
+      case 'auth/email-already-in-use':
+        return {
+          ['email']: 'Email is already in use',
+        };
+      case 'auth/invalid-email':
+        return {
+          ['email']: 'Invalid email',
+        };
+      default:
+        return '';
+    }
+  }
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={async (values, { setErrors, setSubmitting }) => {
+        try {
+          await signUpFirebase(values.email, values.password);
+          navigate('/dashboard');
+        } catch (error) {
+          setErrors(handleError(error.code));
+        } finally {
+          setSubmitting(false);
+        }
+      }}
     >
       {({ isSubmitting, isValid, dirty }) => (
         <Form>
           <Flex direction="column" css={{ gap: '$4' }}>
             <Input
-              label="name*"
-              id="name"
-              name="name"
-              placeholder="Enter your name"
-            />
-            <Input
-              label="email*"
+              label="email"
               id="email"
               name="email"
               placeholder="Enter your email"
             />
             <Input
-              label="password*"
+              label="password"
               id="password"
               name="password"
               placeholder="••••••••"

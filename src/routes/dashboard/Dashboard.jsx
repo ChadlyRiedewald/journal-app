@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { styled } from 'stitches.config';
 import { Flex } from 'components/layout';
-import { Button } from 'components/buttons';
+import { Button } from 'components/button';
 import { Sidebar } from './Sidebar';
 import DesktopOnly from 'components/desktopOnly';
 import MobileOnly from 'components/mobileOnly';
