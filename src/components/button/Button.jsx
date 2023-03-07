@@ -1,4 +1,5 @@
 import { styled, css } from 'stitches.config';
+import { LoadingSpinner } from '../loadingSpinner';
 
 export const button = css({
   fw: '$semibold',
@@ -255,8 +256,18 @@ export const button = css({
 
 const ButtonStyled = styled('button', { ...button });
 
-export const Button = ({ iconLeading, iconTrailing, children, ...props }) => {
-  return (
+export const Button = ({
+  iconLeading,
+  iconTrailing,
+  children,
+  loading,
+  ...props
+}) => {
+  return loading ? (
+    <ButtonStyled {...props}>
+      <LoadingSpinner />
+    </ButtonStyled>
+  ) : (
     <ButtonStyled {...props}>
       {iconLeading}
       {children}
