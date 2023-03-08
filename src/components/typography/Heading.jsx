@@ -31,10 +31,10 @@ export const Heading = styled('h1', {
       bold: { fw: '$bold' },
     },
     color: {
-      primary11: { color: '$primary11' },
-      primary12: { color: '$primary12' },
-      gray11: { color: '$gray11' },
-      gray12: { color: '$gray12' },
+      primary: { color: '$primary11' },
+      gray: { color: '$gray11' },
+      error: { color: '$error11' },
+      success: { color: '$success11' },
     },
   },
   defaultVariants: {

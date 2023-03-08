@@ -147,7 +147,7 @@ const Home = () => {
                 '@tablet': 'xl',
               }}
               weight="regular"
-              color="gray11"
+              color="gray"
               css={{
                 mb: '$4',
                 '@tablet': { mb: 0 },

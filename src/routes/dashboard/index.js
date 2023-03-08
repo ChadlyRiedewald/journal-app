@@ -1,4 +1,4 @@
 export { default } from './Dashboard';
 export * from './DashboardHome';
 export * from './DashboardJournal';
-export * from './DashboardSettings';
+export * from '../settings/Settings';

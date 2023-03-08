@@ -26,12 +26,10 @@ export const Text = styled('p', {
       bold: { fw: '$bold' },
     },
     color: {
-      primary11: { color: '$primary11' },
-      primary12: { color: '$primary12' },
-      gray11: { color: '$gray11' },
-      gray12: { color: '$gray12' },
-      error11: { color: '$error11' },
-      error12: { color: '$error12' },
+      primary: { color: '$primary11' },
+      gray: { color: '$gray11' },
+      error: { color: '$error11' },
+      success: { color: '$success11' },
     },
   },
   defaultVariants: {

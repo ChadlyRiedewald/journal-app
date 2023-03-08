@@ -9,7 +9,7 @@ import { Button } from 'components/button';
 import { Link } from './Link';
 import { ReactComponent as Logo } from 'assets/logo.svg';
 import { ReactComponent as GoogleIcon } from 'assets/icons/google.svg';
-import { signInFirebase } from 'app/firebase';
+import { useUserAuth } from 'app/context';
 
 const initialValues = {
   email: '',
@@ -27,6 +27,7 @@ const validationSchema = Yup.object({
 
 const LogInForm = ({ setDialogState }) => {
   const navigate = useNavigate();
+  const { logIn, googleSignIn } = useUserAuth();
 
   function handleError(errorCode) {
     switch (errorCode) {
@@ -49,7 +50,7 @@ const LogInForm = ({ setDialogState }) => {
       validationSchema={validationSchema}
       onSubmit={async (values, { setErrors, setSubmitting }) => {
         try {
-          await signInFirebase(values.email, values.password);
+          await logIn(values.email, values.password);
           navigate('/dashboard');
         } catch (error) {
           setErrors(handleError(error.code));
@@ -108,6 +109,14 @@ const LogInForm = ({ setDialogState }) => {
               fluid
               iconLeading={<GoogleIcon style={{ height: 24, width: 24 }} />}
               type="button"
+              onClick={async () => {
+                try {
+                  await googleSignIn();
+                  navigate('/dashboard');
+                } catch (error) {
+                  console.log(error.message);
+                }
+              }}
             >
               Sign in with Google
             </Button>
@@ -141,13 +150,13 @@ export const LogIn = ({ setDialogState }) => {
               Log in to your account
             </Heading>
           </Dialog.Title>
-          <Text size={{ '@initial': 'sm', '@tablet': 'md' }} color="gray11">
+          <Text size={{ '@initial': 'sm', '@tablet': 'md' }} color="gray">
             Welcome back! Please enter your details
           </Text>
         </Flex>
       </Flex>
       <LogInForm setDialogState={setDialogState} />
-      <Text size="sm" weight="regular" color="gray11">
+      <Text size="sm" weight="regular" color="gray">
         Don't have an account?{' '}
         <Link type="button" onClick={() => setDialogState('signup')}>
           Sign up

@@ -8,32 +8,56 @@ import { FeaturedIcon } from 'components/featuredIcon';
 import { Heading, Text } from 'components/typography';
 import { ReactComponent as ArrowLeftIcon } from 'assets/icons/arrow-narrow-left.svg';
 import { ReactComponent as KeyIcon } from 'assets/icons/key-01.svg';
-
-const initialValues = {
-  email: '',
-};
-
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email(`Please enter a valid email address`)
-    .required(`Can't be empty`),
-});
+import { useUserAuth } from 'app/context';
+import { useState } from 'react';
+import { delay } from 'app/util';
 
 const ForgotPasswordForm = ({ setDialogState }) => {
+  const { resetPassword } = useUserAuth();
+  const [success, setSuccess] = useState(false);
+
+  function handleError(errorCode) {
+    switch (errorCode) {
+      case 'auth/user-not-found':
+        return {
+          ['email']: 'User not found',
+        };
+      default:
+        return '';
+    }
+  }
+
   return (
     <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(values) => console.log(values)}
+      initialValues={{ email: '' }}
+      validationSchema={Yup.object({
+        email: Yup.string()
+          .email(`Please enter a valid email address`)
+          .required(`Can't be empty`),
+      })}
+      onSubmit={async (values, { setErrors, setSubmitting }) => {
+        try {
+          await resetPassword(values.email);
+          await setSuccess(true);
+          await delay(2000);
+          setDialogState('login');
+        } catch (error) {
+          setErrors(handleError(error.code));
+          setSuccess(false);
+        } finally {
+          setSubmitting(false);
+        }
+      }}
     >
       {({ isSubmitting, isValid, dirty }) => (
         <Form>
           <Flex direction="column" css={{ gap: '$4' }}>
             <Input
-              label="email*"
+              label="email"
               id="email"
               name="email"
               placeholder="Enter your email"
+              success={success && 'Check your mail for instructions'}
             />
           </Flex>
           <Flex direction="column" css={{ gap: '$4' }}>
@@ -86,7 +110,7 @@ export const ForgotPassword = ({ setDialogState }) => {
               Forgot password?
             </Heading>
           </Dialog.Title>
-          <Text size={{ '@initial': 'sm', '@tablet': 'md' }} color="gray11">
+          <Text size={{ '@initial': 'sm', '@tablet': 'md' }} color="gray">
             No worries, we'll send you reset instructions
           </Text>
         </Flex>

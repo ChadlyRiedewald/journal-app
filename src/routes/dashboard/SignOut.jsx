@@ -11,11 +11,13 @@ import { ReactComponent as SignOutIcon } from 'assets/icons/log-out-01.svg';
 import { signOutFirebase } from 'app/firebase';
 import { useState } from 'react';
 import { delay } from '../../app/util';
+import { useUserAuth } from '../../app/context';
 
 const Trigger = styled(Dialog.Trigger, { ...navLink });
 
 export const SignOut = () => {
   const [loading, setLoading] = useState(false);
+  const { logOut } = useUserAuth();
   const navigate = useNavigate();
 
   return (
@@ -52,7 +54,7 @@ export const SignOut = () => {
                   Sign out
                 </Heading>
               </Dialog.Title>
-              <Text size={{ '@initial': 'sm', '@tablet': 'md' }} color="gray11">
+              <Text size={{ '@initial': 'sm', '@tablet': 'md' }} color="gray">
                 Are you sure you want to sign out?
               </Text>
             </Flex>
@@ -70,7 +72,7 @@ export const SignOut = () => {
                 setLoading(true);
                 try {
                   await delay(200);
-                  await signOutFirebase();
+                  await logOut();
                   navigate('/');
                 } catch (error) {
                   console.error(error);

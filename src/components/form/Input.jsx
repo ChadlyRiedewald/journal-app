@@ -3,6 +3,7 @@ import { Text } from 'components/typography';
 import { Flex } from 'components/layout';
 import { Label } from './Label';
 import { useField } from 'formik';
+import { ReactComponent as Check } from 'assets/icons/check.svg';
 
 const InputStyled = styled('input', {
   color: '$gray12',
@@ -28,13 +29,16 @@ const InputStyled = styled('input', {
   variants: {
     error: {
       true: {
+        '&:focus': {
+          boxShadow: '$xsError',
+        },
         boxShadow: '$xsError',
       },
     },
   },
 });
 
-export const Input = ({ label, id, hint, ...props }) => {
+export const Input = ({ label, id, hint, success, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
@@ -47,15 +51,31 @@ export const Input = ({ label, id, hint, ...props }) => {
         error={meta.touched && !!meta.error}
       />
       {meta.touched && !!meta.error ? (
-        <Text size="sm" weight="regular" color="error11">
+        <Text size="sm" weight="regular" color="error">
           {meta.error}
         </Text>
       ) : (
         hint && (
-          <Text size="sm" weight="regular" color="gray11">
+          <Text size="sm" weight="regular" color="gray">
             {hint}
           </Text>
         )
+      )}
+      {success && (
+        <Flex
+          align="center"
+          css={{
+            color: '$success11',
+            gap: 4,
+            '& svg': { size: 16 },
+          }}
+        >
+          <Check />
+
+          <Text size="sm" weight="regular" color="success">
+            {success}
+          </Text>
+        </Flex>
       )}
     </Flex>
   );

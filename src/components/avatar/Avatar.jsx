@@ -10,7 +10,23 @@ const AvatarRoot = styled(AvatarPrimitive.Root, {
   userSelect: 'none',
   br: '$full',
   bgColor: '$blackA3',
-  size: '$12',
+  flexShrink: 0,
+
+  variants: {
+    size: {
+      sm: {
+        size: '$12',
+        fs: '$sm',
+      },
+      md: {
+        size: '$16',
+        fs: '$lg',
+      },
+    },
+  },
+  defaultVariants: {
+    size: 'sm',
+  },
 });
 
 const AvatarImage = styled(AvatarPrimitive.Image, {
@@ -26,7 +42,6 @@ const AvatarFallback = styled(AvatarPrimitive.Fallback, {
   justifyContent: 'center',
   bgColor: '$primary3',
   color: '$primary11',
-  fs: '$sm',
   lineHeight: 1,
   fontWeight: '$semibold',
 });

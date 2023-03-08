@@ -8,15 +8,17 @@ import { Heading, Text } from 'components/typography';
 import { Link } from './Link';
 import { ReactComponent as GoogleIcon } from 'assets/icons/google.svg';
 import { ReactComponent as Logo } from 'assets/logo.svg';
-import { signUpFirebase } from 'app/firebase';
 import { useNavigate } from 'react-router-dom';
+import { useUserAuth } from 'app/context';
 
 const initialValues = {
+  name: '',
   email: '',
   password: '',
 };
 
 const validationSchema = Yup.object({
+  name: Yup.string().required(`Can't be empty`),
   email: Yup.string()
     .email(`Please enter a valid email address`)
     .required(`Can't be empty`),
@@ -27,6 +29,7 @@ const validationSchema = Yup.object({
 
 const SignUpForm = () => {
   const navigate = useNavigate();
+  const { signUp, googleSignIn } = useUserAuth();
 
   function handleError(errorCode) {
     switch (errorCode) {
@@ -49,7 +52,7 @@ const SignUpForm = () => {
       validationSchema={validationSchema}
       onSubmit={async (values, { setErrors, setSubmitting }) => {
         try {
-          await signUpFirebase(values.email, values.password);
+          await signUp(values);
           navigate('/dashboard');
         } catch (error) {
           setErrors(handleError(error.code));
@@ -61,6 +64,12 @@ const SignUpForm = () => {
       {({ isSubmitting, isValid, dirty }) => (
         <Form>
           <Flex direction="column" css={{ gap: '$4' }}>
+            <Input
+              label="name"
+              id="name"
+              name="name"
+              placeholder="Enter your name"
+            />
             <Input
               label="email"
               id="email"
@@ -92,6 +101,14 @@ const SignUpForm = () => {
               fluid
               iconLeading={<GoogleIcon style={{ height: 24, width: 24 }} />}
               type="button"
+              onClick={async () => {
+                try {
+                  await googleSignIn();
+                  navigate('/dashboard');
+                } catch (error) {
+                  console.log(error.message);
+                }
+              }}
             >
               Sign up with Google
             </Button>
@@ -125,13 +142,13 @@ export const SignUp = ({ setDialogState }) => {
               Create an account
             </Heading>
           </Dialog.Title>
-          <Text size={{ '@initial': 'sm', '@tablet': 'md' }} color="gray11">
+          <Text size={{ '@initial': 'sm', '@tablet': 'md' }} color="gray">
             Start your journaling journey
           </Text>
         </Flex>
       </Flex>
       <SignUpForm />
-      <Text size="sm" weight="regular" color="gray11">
+      <Text size="sm" weight="regular" color="gray">
         Already have an account?{' '}
         <Link type="button" onClick={() => setDialogState('login')}>
           Log in

@@ -11,6 +11,8 @@ import { ReactComponent as Logo } from 'assets/logo-text.svg';
 import { ReactComponent as HomeIcon } from 'assets/icons/home-line.svg';
 import { ReactComponent as JournalIcon } from 'assets/icons/list.svg';
 import { ReactComponent as SettingsIcon } from 'assets/icons/settings-01.svg';
+import { useUserAuth } from 'app/context';
+import { getInitials } from 'app/util';
 
 const NavLink = styled(NL, { ...navLink });
 
@@ -52,20 +54,22 @@ const ListItem = styled('li', {
 });
 
 const AccountInfo = () => {
+  const { user } = useUserAuth();
+
   return (
     <Flex css={{ borderTop: '1px solid $gray6', mx: '-12px' }}>
       <Flex align="center" css={{ gap: 12, pt: 12, pl: 12 }}>
         <Avatar
-          src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-          alt="Colm Tuite"
-          fallback="CR"
+          src={user.photoURL || ''}
+          alt={user.displayName}
+          fallback={user.displayName ? getInitials(user.displayName) : ''}
         />
         <Flex direction="column">
           <Text size="sm" weight="semibold">
-            Chadly Riedewald
+            {user.displayName}
           </Text>
-          <Text size="xs" color="gray11">
-            hi@chadly.dev
+          <Text size="xs" color="gray">
+            {user.email}
           </Text>
         </Flex>
       </Flex>
@@ -80,12 +84,7 @@ export const Sidebar = () => {
       <Navigation>
         <List>
           <ListItem>
-            <Text
-              color="gray11"
-              size="xs"
-              weight="semibold"
-              css={{ mb: '-4px' }}
-            >
+            <Text color="gray" size="xs" weight="semibold" css={{ mb: '-4px' }}>
               Navigation
             </Text>
           </ListItem>
@@ -108,12 +107,7 @@ export const Sidebar = () => {
         </List>
         <List>
           <ListItem>
-            <Text
-              color="gray11"
-              size="xs"
-              weight="semibold"
-              css={{ mb: '-4px' }}
-            >
+            <Text color="gray" size="xs" weight="semibold" css={{ mb: '-4px' }}>
               Inspiration
             </Text>
           </ListItem>
@@ -126,12 +120,7 @@ export const Sidebar = () => {
         </List>
         <List css={{ mt: 'auto' }}>
           <ListItem>
-            <Text
-              color="gray11"
-              size="xs"
-              weight="semibold"
-              css={{ mb: '-4px' }}
-            >
+            <Text color="gray" size="xs" weight="semibold" css={{ mb: '-4px' }}>
               Account
             </Text>
           </ListItem>
