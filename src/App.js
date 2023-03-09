@@ -1,12 +1,9 @@
 import { globalStyles } from 'stitches.config';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from 'routes/home';
-import Dashboard, {
-  DashboardHome,
-  DashboardJournal,
-  Settings,
-} from 'routes/dashboard';
+import Dashboard, { DashboardHome, DashboardJournal } from 'routes/dashboard';
 import { useUserAuth } from './app/context';
+import Settings from './routes/settings';
 
 const App = () => {
   const { user } = useUserAuth();

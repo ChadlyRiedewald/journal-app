@@ -42,7 +42,12 @@ export const Input = ({ label, id, hint, success, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
-    <Flex direction="column" css={{ gap: 6 }}>
+    <Flex
+      direction="column"
+      css={{
+        gap: 6,
+      }}
+    >
       <Label htmlFor={id}>{label}</Label>
       <InputStyled
         id={id}

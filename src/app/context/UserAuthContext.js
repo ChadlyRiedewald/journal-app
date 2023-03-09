@@ -8,9 +8,17 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
+  updatePassword,
+  updateEmail,
 } from 'firebase/auth';
 
-import { doc, serverTimestamp, setDoc, onSnapshot } from 'firebase/firestore';
+import {
+  doc,
+  serverTimestamp,
+  setDoc,
+  onSnapshot,
+  updateDoc,
+} from 'firebase/firestore';
 
 const userAuthContext = createContext(null);
 
@@ -70,6 +78,23 @@ export function UserAuthContextProvider({ children }) {
     return sendPasswordResetEmail(auth, email);
   }
 
+  // Update password
+  function changePassword(newPassword) {
+    const user = auth.currentUser;
+    return updatePassword(user, newPassword);
+  }
+
+  // Update Info
+  async function changeInfo(values) {
+    const user = auth.currentUser;
+    await updateEmail(user, values.email);
+
+    return await updateDoc(doc(db, 'users', user.uid), {
+      displayName: values.displayName,
+      email: values.email,
+    });
+  }
+
   // Listener to check Auth, and if there is a user authenticated set the user Doc in context
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
@@ -100,6 +125,8 @@ export function UserAuthContextProvider({ children }) {
         logOut,
         googleSignIn,
         resetPassword,
+        changePassword,
+        changeInfo,
       }}
     >
       {children}
