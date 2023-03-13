@@ -69,7 +69,7 @@ const PersonalInfo = () => {
             await updateDoc(userDocRef, {
               photoURL: downloadURL,
             });
-            setImage({});
+            setImage(null);
           } catch (error) {
             console.log('error', error);
             throw error;
@@ -141,7 +141,7 @@ const PersonalInfo = () => {
                 '@initial': 'column',
                 '@tablet': error || success ? 'row' : 'column',
               }}
-              spaced={error || success === true}
+              spaced={error || success}
               css={{
                 borderTop: '1px solid $gray6',
                 pt: 16,

@@ -8,8 +8,6 @@ import Settings from './routes/settings';
 const App = () => {
   const { user } = useUserAuth();
 
-  console.log(user);
-
   globalStyles();
 
   return (
