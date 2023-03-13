@@ -18,6 +18,11 @@ const Wrapper = styled('div', {
   br: '$xl',
   w: '$full',
   cursor: 'pointer',
+
+  '&:focus': {
+    boxShadow: '$xsPrimary',
+    outline: 'none',
+  },
 });
 
 const UploadImageDropzone = ({ image, setImage }) => {

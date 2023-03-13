@@ -11,7 +11,7 @@ import { ReactComponent as CheckIcon } from 'assets/icons/check.svg';
 import { ReactComponent as AlertIcon } from 'assets/icons/alert-circle.svg';
 import * as Yup from 'yup';
 import UploadImageDropzone from './UploadImageDropzone';
-import { app, auth, db } from '../../app/firebase';
+import { app, auth, db } from 'app/firebase';
 import {
   getDownloadURL,
   getStorage,
@@ -112,9 +112,6 @@ const PersonalInfo = () => {
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           try {
             await changeInfo(values);
-            if (image) {
-              await handleUploadImage();
-            }
             await setSuccess(true);
             resetForm({
               values: {
@@ -122,6 +119,9 @@ const PersonalInfo = () => {
                 email: values.email,
               },
             });
+            if (image) {
+              await handleUploadImage();
+            }
           } catch (error) {
             handleError(error.code);
             await setSuccess(false);
