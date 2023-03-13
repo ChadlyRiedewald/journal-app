@@ -9,3 +9,9 @@ export function getInitials(name) {
 
   return initials.toUpperCase();
 }
+
+export function getFileExtension(fileName) {
+  if (fileName) {
+    return fileName.slice(((fileName.lastIndexOf('.') - 1) >>> 0) + 2);
+  }
+}

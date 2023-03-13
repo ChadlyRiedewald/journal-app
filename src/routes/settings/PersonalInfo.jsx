@@ -5,38 +5,78 @@ import { Flex } from 'components/layout';
 import { Text } from 'components/typography';
 import { Formik } from 'formik';
 import { Form, Input } from 'components/form';
-import { Avatar } from 'components/avatar';
-import { getInitials } from 'app/util';
-import { FeaturedIcon } from 'components/featuredIcon';
+import { getFileExtension } from 'app/util';
 import { Button } from 'components/button';
-import { styled } from 'stitches.config';
 import { ReactComponent as CheckIcon } from 'assets/icons/check.svg';
 import { ReactComponent as AlertIcon } from 'assets/icons/alert-circle.svg';
-import { ReactComponent as UploadIcon } from 'assets/icons/upload-cloud-02.svg';
 import * as Yup from 'yup';
-
-const UploadWrapper = styled('div', {
-  d: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: 4,
-  px: 24,
-  py: 16,
-  br: '$xl',
-  border: '1px solid $gray6',
-  w: '$full',
-  cursor: 'pointer',
-});
+import UploadImageDropzone from './UploadImageDropzone';
+import { app, auth, db } from '../../app/firebase';
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
+import { doc, updateDoc } from 'firebase/firestore';
 
 const PersonalInfo = () => {
   const { user, changeInfo } = useUserAuth();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [image, setImage] = useState(null);
 
   function handleError(errorCode) {
     if (errorCode === 'auth/requires-recent-login') {
       setError('Please sign in again to make such changes to your account');
     }
+  }
+
+  function handleUploadImage() {
+    const user = auth.currentUser;
+    const storage = getStorage(app);
+    const file = image.file;
+
+    const fileName =
+      'profile-picture' + '.' + getFileExtension(image.file.name);
+    const storageRef = ref(storage, `${user.uid}/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case 'paused':
+            console.log('Upload is paused');
+            break;
+          case 'running':
+            console.log('Upload is running');
+            break;
+        }
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          const userDocRef = doc(db, 'users', user.uid);
+          try {
+            await updateDoc(userDocRef, {
+              photoURL: downloadURL,
+            });
+            setImage({});
+          } catch (error) {
+            console.log('error', error);
+            throw error;
+          }
+        });
+      }
+    );
   }
 
   return (
@@ -72,6 +112,9 @@ const PersonalInfo = () => {
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           try {
             await changeInfo(values);
+            if (image) {
+              await handleUploadImage();
+            }
             await setSuccess(true);
             resetForm({
               values: {
@@ -92,30 +135,7 @@ const PersonalInfo = () => {
           <Form>
             <Input label="name" id="displayName" name="displayName" />
             <Input label="Email" id="email" name="email" />
-            <Flex
-              css={{
-                gap: 24,
-              }}
-              align="center"
-              direction={{ '@initial': 'column', '@tablet': 'row' }}
-            >
-              <Avatar
-                size="md"
-                src={user.photoURL || ''}
-                alt={user.displayName}
-                fallback={user.displayName ? getInitials(user.displayName) : ''}
-              />
-              <UploadWrapper>
-                <FeaturedIcon color="gray" size="sm" icon={<UploadIcon />} />
-                <Flex css={{ gap: 4 }}>
-                  <Text weight="semibold" color="primary" size="sm">
-                    Click to upload
-                  </Text>
-                  <Text size="sm">or drag and drop</Text>
-                </Flex>
-                <Text size="xs">SVG, PNG, JPG or GIF (max. 800x400px)</Text>
-              </UploadWrapper>
-            </Flex>
+            <UploadImageDropzone image={image} setImage={setImage} />
             <Flex
               direction={{
                 '@initial': 'column',
@@ -179,7 +199,11 @@ const PersonalInfo = () => {
                 size={{ '@initial': 'xl', '@tablet': 'md' }}
                 variant="primary"
                 fluid={{ '@initial': true, '@tablet': false }}
-                disabled={!isValid || !dirty || isSubmitting}
+                disabled={
+                  (!image && !isValid) ||
+                  (!image && !dirty) ||
+                  (!image && isSubmitting)
+                }
                 loading={isSubmitting}
                 type="submit"
               >
